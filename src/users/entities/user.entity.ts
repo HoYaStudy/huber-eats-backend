@@ -28,7 +28,7 @@ export class User extends CoreEntity {
   email: string;
 
   @Field(type => String) // for GraphQL
-  @Column() // for TypeORM
+  @Column({ select: false }) // for TypeORM
   password: string;
 
   @Field(type => UserRole) // for GraphQL
@@ -36,14 +36,20 @@ export class User extends CoreEntity {
   @IsEnum(UserRole)
   role: UserRole;
 
+  @Field(type => Boolean)
+  @Column({ default: false })
+  verified: boolean;
+
   @BeforeInsert()
   @BeforeUpdate()
   async hashPassword(): Promise<void> {
-    try {
-      this.password = await bcrypt.hash(this.password, 10);
-    } catch (e) {
-      console.log(e);
-      throw new InternalServerErrorException();
+    if (this.password) {
+      try {
+        this.password = await bcrypt.hash(this.password, 10);
+      } catch (e) {
+        console.log(e);
+        throw new InternalServerErrorException();
+      }
     }
   }
 

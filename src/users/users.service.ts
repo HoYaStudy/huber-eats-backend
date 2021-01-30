@@ -63,19 +63,17 @@ export class UsersService {
       const token = this.jwtService.sign(user.id);
       return { ok: true, token };
     } catch (error) {
-      return { ok: false, error };
+      return { ok: false, error: "Can't log user in" };
     }
   }
 
   async findById(id: number): Promise<UserProfileOutput> {
     try {
-      const user = await this.users.findOne({ id });
-      if (user) {
-        return {
-          ok: true,
-          user,
-        };
-      }
+      const user = await this.users.findOneOrFail({ id });
+      return {
+        ok: true,
+        user,
+      };
     } catch (error) {
       return { ok: false, error: 'User not found' };
     }
@@ -101,7 +99,7 @@ export class UsersService {
       await this.users.save(user);
       return { ok: true };
     } catch (error) {
-      return { ok: false, error: 'Cound not update profile' };
+      return { ok: false, error: "Couldn't update profile" };
     }
   }
 
@@ -119,7 +117,7 @@ export class UsersService {
       }
       return { ok: false, error: 'Verification not found' };
     } catch (error) {
-      return { ok: false, error };
+      return { ok: false, error: "Couldn't verify email" };
     }
   }
 }

@@ -23,7 +23,7 @@ registerEnumType(UserRole, { name: 'UserRole' });
 @Entity() // for TypeORM
 export class User extends CoreEntity {
   @Field(type => String) // for GraphQL
-  @Column() // for TypeORM
+  @Column({ unique: true }) // for TypeORM
   @IsEmail()
   email: string;
 

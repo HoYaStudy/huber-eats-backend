@@ -10,6 +10,7 @@ import { IsBoolean, IsEmail, IsEnum, IsString } from 'class-validator';
 import * as bcrypt from 'bcrypt';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
+import { Order } from 'src/orders/entities/order.entity';
 
 export enum UserRole {
   Client = 'Client',
@@ -49,6 +50,20 @@ export class User extends CoreEntity {
     restaurant => restaurant.owner,
   ) // for TypeORM
   restaurants: Restaurant[];
+
+  @Field(type => [Order]) //for GraphQL
+  @OneToMany(
+    type => Order,
+    order => order.customer,
+  ) // for TypeORM
+  orders: Order[];
+
+  @Field(type => [Order]) //for GraphQL
+  @OneToMany(
+    type => Order,
+    order => order.driver,
+  ) // for TypeORM
+  rides: Order[];
 
   @BeforeInsert()
   @BeforeUpdate()

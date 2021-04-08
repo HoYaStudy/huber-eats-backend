@@ -37,7 +37,7 @@ export class Order extends CoreEntity {
   @ManyToOne(
     type => User,
     user => user.orders,
-    { onDelete: 'SET NULL', nullable: true },
+    { onDelete: 'SET NULL', nullable: true, eager: true },
   ) // for TypeORM
   customer?: User;
 
@@ -48,7 +48,7 @@ export class Order extends CoreEntity {
   @ManyToOne(
     type => User,
     user => user.rides,
-    { onDelete: 'SET NULL', nullable: true },
+    { onDelete: 'SET NULL', nullable: true, eager: true },
   ) // for TypeORM
   driver?: User;
 
@@ -59,12 +59,12 @@ export class Order extends CoreEntity {
   @ManyToOne(
     type => Restaurant,
     restaurant => restaurant.orders,
-    { onDelete: 'SET NULL', nullable: true },
+    { onDelete: 'SET NULL', nullable: true, eager: true },
   ) // for TypeORM
   restaurant?: Restaurant;
 
   @Field(type => [OrderItem]) // for GraphQL
-  @ManyToMany(type => OrderItem) // for TypeORM
+  @ManyToMany(type => OrderItem, { eager: true }) // for TypeORM
   @JoinTable() // for TypeORM
   items: OrderItem[];
 

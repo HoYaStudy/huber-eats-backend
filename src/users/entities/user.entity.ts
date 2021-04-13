@@ -11,6 +11,7 @@ import * as bcrypt from 'bcrypt';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { Restaurant } from 'src/restaurants/entities/restaurant.entity';
 import { Order } from 'src/orders/entities/order.entity';
+import { Payment } from 'src/payments/entities/payment.entity';
 
 export enum UserRole {
   Client = 'Client',
@@ -50,6 +51,14 @@ export class User extends CoreEntity {
     restaurant => restaurant.owner,
   ) // for TypeORM
   restaurants: Restaurant[];
+
+  @Field(type => [Payment]) //for GraphQL
+  @OneToMany(
+    type => Payment,
+    payment => payment.user,
+    { eager: true },
+  ) // for TypeORM
+  payments: Payment[];
 
   @Field(type => [Order]) //for GraphQL
   @OneToMany(

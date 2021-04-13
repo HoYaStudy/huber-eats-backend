@@ -59,4 +59,12 @@ export class Restaurant extends CoreEntity {
     dish => dish.restaurant,
   ) // for TypeORM
   menu: Dish[];
+
+  @Field(type => Boolean) // for GraphQL
+  @Column({ default: false }) // for TypeORM
+  isPromoted: boolean;
+
+  @Field(type => Date, { nullable: true }) // for GraphQL
+  @Column({ nullable: true }) // for TypeORM
+  promotedUntil: Date;
 }

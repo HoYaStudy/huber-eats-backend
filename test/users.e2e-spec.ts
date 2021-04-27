@@ -210,10 +210,10 @@ describe('UserModule (e2e)', () => {
     });
   });
 
-  describe('me', () => {
+  describe('whoami', () => {
     it('should find my profile', () => {
       return privateTest(`{
-          me {
+          whoami {
             email
           }
         }`)
@@ -222,7 +222,7 @@ describe('UserModule (e2e)', () => {
           const {
             body: {
               data: {
-                me: { email },
+                whoami: { email },
               },
             },
           } = res;
@@ -232,7 +232,7 @@ describe('UserModule (e2e)', () => {
 
     it('should not allow logged out user', () => {
       return publicTest(`{
-          me {
+          whoami {
             email
           }
         }`)
@@ -275,7 +275,7 @@ describe('UserModule (e2e)', () => {
 
     it('should have new email', () => {
       return privateTest(` {
-          me {
+          whoami {
             email
           }
         }`)
@@ -284,7 +284,7 @@ describe('UserModule (e2e)', () => {
           const {
             body: {
               data: {
-                me: { email },
+                whoami: { email },
               },
             },
           } = res;

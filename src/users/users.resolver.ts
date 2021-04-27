@@ -31,7 +31,7 @@ export class UsersResolver {
 
   @Query(returns => User)
   @Role(['Any'])
-  me(@AuthUser() authUser: User) {
+  whoami(@AuthUser() authUser: User) {
     return authUser;
   }
 

@@ -45,7 +45,7 @@ export class User extends CoreEntity {
   @IsBoolean()
   verified: boolean;
 
-  @Field(type => [Restaurant]) //for GraphQL
+  @Field(type => [Restaurant], { nullable: true }) //for GraphQL
   @OneToMany(
     type => Restaurant,
     restaurant => restaurant.owner,

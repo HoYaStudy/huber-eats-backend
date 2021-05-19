@@ -21,7 +21,7 @@ export class UploadsController {
       },
     });
     try {
-      const objName = `${Date.now() + file.originalname}`;
+      const objName = `${Date.now() + '_' + file.originalname}`;
       // await new AWS.S3().createBucket({ Bucket: BUCKET_NAME }).promise();
       await new AWS.S3()
         .putObject({

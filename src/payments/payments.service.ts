@@ -12,7 +12,7 @@ import { GetPaymentsOutput } from './dtos/get-payments.dto';
 import { Payment } from './entities/payment.entity';
 
 @Injectable()
-export class PaymentService {
+export class PaymentsService {
   constructor(
     @InjectRepository(Payment)
     private readonly payments: Repository<Payment>,

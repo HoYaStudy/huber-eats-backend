@@ -43,7 +43,7 @@ export class Restaurant extends CoreEntity {
   ) // for TypeORM
   owner: User;
 
-  @Field(type => [Order]) // for GraphQL
+  @Field(type => [Order], { nullable: true }) // for GraphQL
   @ManyToOne(
     type => Order,
     order => order.restaurant,

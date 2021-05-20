@@ -8,11 +8,11 @@ import {
 } from './dtos/create-payment.dto';
 import { GetPaymentsOutput } from './dtos/get-payments.dto';
 import { Payment } from './entities/payment.entity';
-import { PaymentService } from './payments.service';
+import { PaymentsService } from './payments.service';
 
 @Resolver(of => Payment)
-export class PaymentResolver {
-  constructor(private readonly paymentService: PaymentService) {}
+export class PaymentsResolver {
+  constructor(private readonly paymentService: PaymentsService) {}
 
   @Mutation(returns => CreatePaymentOutput)
   @Role(['Owner'])
